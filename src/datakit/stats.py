@@ -5,12 +5,12 @@ from numbers import Real
 
 
 def mean_numeric(values: Iterable[Real | None], 
-                 mininum: Real | None = None) -> float | None:
+                 minimum: Real | None = None) -> float | None:
     """Return the arithmetic mean of numeric values."""
     cleaned = [value for value in values if value is not None]
 
-    if mininum is not None:
-        cleaned = [value for value in cleaned if value >= mininum]
+    if minimum is not None:
+        cleaned = [value for value in cleaned if value >= minimum]
 
     if not cleaned:
         return None
