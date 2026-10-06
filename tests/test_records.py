@@ -38,6 +38,17 @@ def test_select_fields_none_values_are_included():
     assert result == {"sample": "A01", "depth": None}
 
 
+def test_select_fields_strict_allows_existing_none_value():
+    record = {"sample": "A01", "depth": None}
+
+    result = select_fields(
+        record,
+        ["sample", "depth"],
+        strict=True,
+    )
+
+    assert result == {"sample": "A01", "depth": None}
+
 def test_select_fields_non_strict_continues_after_missing_field():
     record = {"sample": "A01"}
     result = select_fields(record, ["depth", "sample", "status"], strict=False)

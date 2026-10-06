@@ -39,8 +39,6 @@ def select_fields(
         if field not in record and strict:
             raise KeyError(field)
         value = record.get(field)
-        if value is None and strict:
-            raise KeyError(field)
         selected[field] = value
 
     return selected
