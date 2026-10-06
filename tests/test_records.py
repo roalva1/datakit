@@ -31,3 +31,21 @@ def test_select_fields_strict_mode_raises_for_missing_field():
     record = {"sample": "A01"}
     with pytest.raises(KeyError):
         select_fields(record, ["sample", "depth"], strict=True)
+
+def test_select_fields_none_values_are_included():
+    record = {"sample": "A01", "depth": None, "status": "PASS"}
+    result = select_fields(record, ["sample", "depth"])
+    assert result == {"sample": "A01", "depth": None}
+
+
+def test_select_fields_non_strict_continues_after_missing_field():
+    record = {"sample": "A01"}
+    result = select_fields(record, ["depth", "sample", "status"], strict=False)
+    assert result == {"sample": "A01"}
+
+
+def test_select_fields_strict_reports_first_missing_field():
+    record = {"sample": "A01"}
+    with pytest.raises(KeyError) as exc_info:
+        select_fields(record, ["sample", "depth", "status"], strict=True)
+    assert exc_info.value.args == ("depth",)

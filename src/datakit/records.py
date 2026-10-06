@@ -34,12 +34,13 @@ def select_fields(
     selected: dict[str, Any] = {}
 
     for field in fields:
-        value = record.get(field)
-        if value is None:
-            if strict:
-                raise KeyError(field)
+        if field not in record and not strict:
             continue
-
+        if field not in record and strict:
+            raise KeyError(field)
+        value = record.get(field)
+        if value is None and strict:
+            raise KeyError(field)
         selected[field] = value
 
     return selected
