@@ -15,3 +15,6 @@ def test_mean_numeric_empty_values_returns_none():
 
 def test_mean_numeric_only_missing_values_returns_none():
     assert mean_numeric([None, None]) is None
+
+def test_mean_numeric_with_minimum():
+    assert mean_numeric([10, 20, 30], minimum=15) == 25.0
